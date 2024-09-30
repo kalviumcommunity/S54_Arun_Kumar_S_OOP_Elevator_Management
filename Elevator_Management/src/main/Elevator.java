@@ -3,13 +3,15 @@ package main;
 public class Elevator {
     private int currentFloor;
     private final int maxFloor;
+    private static int totalElevatorsCreated = 0; // Static variable to track the number of elevators created
 
     public Elevator(int maxFloor) {
         if (maxFloor <= 0) {
             throw new IllegalArgumentException("Maximum floor must be a positive integer.");
         }
-        this.currentFloor = 0;  // Assuming elevators start at ground floor (0)
+        this.currentFloor = 0;
         this.maxFloor = maxFloor;
+        totalElevatorsCreated++; // Increment when a new elevator is created
     }
 
     public void moveUp() {
@@ -30,12 +32,12 @@ public class Elevator {
         }
     }
 
-    public void resetToGroundFloor() {
-        currentFloor = 0;
-        System.out.println("Elevator reset to ground floor: " + currentFloor);
-    }
-
     public int getCurrentFloor() {
         return currentFloor;
+    }
+
+    // Static method to display the total number of elevators created
+    public static void displayTotalElevatorsCreated() {
+        System.out.println("Total elevators created: " + totalElevatorsCreated);
     }
 }
