@@ -71,4 +71,12 @@ public class Building {
         }
         request.handleRequest((Elevator) elevators[elevatorIndex]);
     }
+
+    // Getter method to retrieve the elevator by index
+    public ElevatorBase getElevator(int index) {
+        if (index < 0 || index >= elevators.length) {
+            throw new IllegalArgumentException("Invalid elevator index.");
+        }
+        return elevators[index];
+    }
 }
