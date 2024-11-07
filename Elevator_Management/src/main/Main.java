@@ -41,7 +41,12 @@ public class Main {
             }
 
             System.out.println("Total service requests handled: " + serviceRequestCount);
-            System.out.println("Total elevators created: " + numElevators);
+            Building.displayBuildingElevators();
+
+            // Cleanup each elevator at the end of the program
+            for (int i = 0; i < numElevators; i++) {
+                ((Elevator) building.getElevator(i)).cleanup();
+            }
         } catch (Exception e) {
             System.out.println("An error occurred: " + e.getMessage());
         }
