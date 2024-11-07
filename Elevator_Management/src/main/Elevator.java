@@ -1,19 +1,16 @@
 package main;
 
-public class Elevator {
-    private int currentFloor;
-    private final int maxFloor;
-    private static int totalElevatorsCreated = 0; // Static variable to track the number of elevators created
+public class Elevator extends ElevatorBase {
+    private static int totalElevatorsCreated = 0; // Static variable to track total number of elevators created
 
+    // Constructor
     public Elevator(int maxFloor) {
-        if (maxFloor <= 0) {
-            throw new IllegalArgumentException("Maximum floor must be a positive integer.");
-        }
-        this.currentFloor = 0;
-        this.maxFloor = maxFloor;
-        totalElevatorsCreated++; // Increment when a new elevator is created
+        super(maxFloor); // Calling the superclass constructor
+        totalElevatorsCreated++; // Increment count when a new elevator is created
     }
 
+    // Method to move elevator up by one floor
+    @Override
     public void moveUp() {
         if (currentFloor < maxFloor) {
             currentFloor++;
@@ -23,6 +20,8 @@ public class Elevator {
         }
     }
 
+    // Method to move elevator down by one floor
+    @Override
     public void moveDown() {
         if (currentFloor > 0) {
             currentFloor--;
@@ -32,12 +31,13 @@ public class Elevator {
         }
     }
 
-    public int getCurrentFloor() {
-        return currentFloor;
-    }
-
     // Static method to display the total number of elevators created
     public static void displayTotalElevatorsCreated() {
         System.out.println("Total elevators created: " + totalElevatorsCreated);
+    }
+
+    // Static method to reset total elevators count (useful for testing purposes)
+    public static void resetTotalElevatorsCount() {
+        totalElevatorsCreated = 0;
     }
 }
