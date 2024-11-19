@@ -10,11 +10,15 @@ public class Building {
         }
         elevators = new ElevatorBase[numberOfElevators];
         for (int i = 0; i < numberOfElevators; i++) {
-            elevators[i] = new Elevator(maxFloor); // Dynamic allocation using 'new'
+            if (i % 2 == 0) {
+                elevators[i] = new Elevator(maxFloor); // Regular elevator
+            } else {
+                elevators[i] = new CargoElevator(maxFloor, 1000); // Cargo elevator with weight capacity
+            }
         }
     }
 
-    // Method to move an elevator to a specific floor based on user input
+    // Method to move an elevator to a specific floor based on user input (Overloaded for polymorphism)
     public void moveElevator(int elevatorIndex, int destinationFloor) {
         if (elevatorIndex < 0 || elevatorIndex >= elevators.length) {
             System.out.println("Invalid elevator index.");
@@ -32,6 +36,22 @@ public class Building {
         while (elevator.getCurrentFloor() > destinationFloor) {
             elevator.moveDown();
         }
+    }
+
+    // Overloaded moveElevator method demonstrating polymorphism with ServiceRequest (Assignment 2)
+    public void moveElevator(ServiceRequest request) {
+        System.out.println("Handling moveElevator via ServiceRequest");
+        int elevatorIndex = 0; // For demonstration, using the first elevator
+        handleServiceRequest(elevatorIndex, request);
+    }
+
+    // Method to handle the service request for a specific elevator
+    public void handleServiceRequest(int elevatorIndex, ServiceRequest request) {
+        if (elevatorIndex < 0 || elevatorIndex >= elevators.length) {
+            System.out.println("Invalid elevator index.");
+            return;
+        }
+        request.handleRequest((Elevator) elevators[elevatorIndex]);
     }
 
     // Method to display the status of all elevators in the building
@@ -61,15 +81,6 @@ public class Building {
             throw new IllegalArgumentException("Invalid elevator index.");
         }
         return elevators[elevatorIndex].getCurrentFloor();
-    }
-
-    // Handle the service request for a specific elevator
-    public void handleServiceRequest(int elevatorIndex, ServiceRequest request) {
-        if (elevatorIndex < 0 || elevatorIndex >= elevators.length) {
-            System.out.println("Invalid elevator index.");
-            return;
-        }
-        request.handleRequest((Elevator) elevators[elevatorIndex]);
     }
 
     // Getter method to retrieve the elevator by index

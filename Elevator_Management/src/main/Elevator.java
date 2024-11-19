@@ -40,4 +40,12 @@ public class Elevator extends ElevatorBase {
     public static void resetTotalElevatorsCount() {
         totalElevatorsCreated = 0;
     }
+
+    // Overriding the emergencyStop method from ElevatorBase to provide specific behavior
+    @Override
+    public void emergencyStop() {
+        System.out.println("Elevator emergency stop triggered. Stopping elevator immediately at floor: " + currentFloor);
+        // any custom logic for emergency stop, if necessary
+        // For example, setting the elevator in a halted state, notifying the system, etc.
+    }
 }

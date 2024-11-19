@@ -29,6 +29,18 @@ public class Main {
                 building.handleServiceRequest(elevatorIndex, request);
                 serviceRequestCount++;
 
+                // Option to trigger emergency stop for an elevator
+                System.out.print("Do you want to trigger an emergency stop for any elevator? (yes/no): ");
+                String emergencyStopResponse = scanner.next().toLowerCase();
+                if (emergencyStopResponse.equals("yes")) {
+                    System.out.print("Enter the elevator index (0 to " + (numElevators - 1) + "): ");
+                    int emergencyElevatorIndex = scanner.nextInt();
+                    // Triggering emergency stop for the selected elevator
+                    building.getElevator(emergencyElevatorIndex).emergencyStop();
+                    System.out.println("Calling the technician. The program will now end.");
+                    break;  // Exit the program after the emergency stop
+                }
+
                 System.out.print("Do you want to add another request? (yes/no): ");
                 String continueInput = scanner.next().toLowerCase();
                 if (!continueInput.equals("yes")) {
@@ -36,6 +48,7 @@ public class Main {
                 }
             }
 
+            // Displaying final elevator status
             for (int i = 0; i < numElevators; i++) {
                 building.displayElevatorFloor(i);
             }
